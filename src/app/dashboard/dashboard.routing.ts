@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { GuardService } from '../shared/guard.service';
-import { DashboardComponent } from '../dashboard/dashboard/dashboard.component';
+import { GuardService } from '../shared/services/guard.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
 const appRoutes: Routes = [
   {
     path: 'dashboard',
+    canActivate: [GuardService],
     children: [
       { path: '', component: DashboardComponent }
     ]

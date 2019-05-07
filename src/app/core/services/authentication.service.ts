@@ -30,7 +30,7 @@ export class AuthenticationService {
   }
 
   redirectToLogin(): boolean {
-    this.router.navigate(['/user/login']);
+    this.router.navigate(['/login']);
     return true;
   }
 
