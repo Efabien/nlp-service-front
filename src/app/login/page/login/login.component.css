@@ -1,0 +1,13 @@
+.form {
+  margin-left: 4%;
+  margin-right: 4%;
+  margin-top: 20%;
+}
+.container {
+  width: 30%;
+  height: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
+  text-align: center;
+}

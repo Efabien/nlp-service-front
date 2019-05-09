@@ -1,69 +1,55 @@
-import { Http, RequestOptionsArgs, Response, XHRBackend, RequestOptions, URLSearchParams } from '@angular/http';
+import { HttpClient, HttpXhrBackend, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-import { Observable } from 'rxjs';
-import 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/observable/empty';
 
 @Injectable()
-export class AuthenticatedHttpService extends Http {
+export class AuthenticatedHttpService extends HttpClient {
+
   constructor(
-    backend: XHRBackend,
-    defaultOptions: RequestOptions
+    backend: HttpXhrBackend
   ) {
-    super(backend, defaultOptions);
+    super(backend);
   }
 
-  get(url: string, options?: RequestOptionsArgs): Observable<Response> {
-    return this.intercept(super.get(url, this.getHTTPOption(options)))
-      .map(response => this.map(response));
+  get(url: string, options: any) {
+    return this.intercept(super.get(url, this.getHTTPOption(options)));
   }
 
-  post(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
-    return this.intercept(super.post(url, body, this.getHTTPOption(options)))
-      .map(response => this.map(response));
+  post(url: string, body: string, options: any) {
+    return this.intercept(super.post(url, body, this.getHTTPOption(options)));
   }
 
-  put(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
-    return this.intercept(super.put(url, body, this.getHTTPOption(options)))
-      .map(response => this.map(response));
+  patch(url: string, body: string, options: any) {
+    return this.intercept(super.patch(url, body, this.getHTTPOption(options)));
   }
 
-  delete(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
-    return this.intercept(super.delete(url, this.getHTTPOption(options)))
-      .map(response => this.map(response));
+  put(url: string, body: string, options: any) {
+    return this.intercept(super.put(url, body, this.getHTTPOption(options)));
   }
 
-  patch(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
-    return this.intercept(super.patch(url, body, this.getHTTPOption(options)))
-      .map(response => this.map(response));
+  delete(url: string, options: any) {
+    return this.intercept(super.delete(url, this.getHTTPOption(options)));
   }
 
   private getHTTPOption(options: any = {}) {
+    const token = localStorage.getItem('token');
+    const params: any = {};
+    if (token) params.Authorization = token;
+    const headers = new HttpHeaders(params);
     if (options.query && Object.keys(options.query).length) {
-      options.params = new URLSearchParams();
-      for (const key in options.query) options.params.append(key, options.query[key]);
+      options.params = new HttpParams();
+      for (let key in options.query) options.params = options.params.append(key, options.query[key]);
     }
-    return Object.assign(options, { withCredentials: true });
+    return Object.assign(options, { json: true, headers: headers });
   }
 
-  private intercept(observable: Observable<Response>): Observable<Response> {
-    return observable.catch(err => {
-      if (err.status === 401) {
-        localStorage.clear();
-        if (window.location.pathname !== '/user/login') window.location.pathname = '/user/login';
-      }
-      if (err.status === 404) return Observable.empty();
-      return Observable.throw(err);
+  private intercept(observable): Observable<any> {
+    return observable.catch(error => {
+      if (error.status === 404) return Observable.empty();
+      return Observable.throw(error);
     });
-  }
-
-  private map(response: Response) {
-    let result;
-    try {
-      result = response.json();
-    } catch (e) {
-      result = typeof response === 'object' ? response.text() : response;
-    }
-    return result;
   }
 }

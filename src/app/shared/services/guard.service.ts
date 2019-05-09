@@ -13,7 +13,7 @@ export class GuardService implements CanActivate  {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ) {
-    return this.authenticationService.redirectToLogin();
+    return this.authenticationService.verifyToken();
   }
   
 }

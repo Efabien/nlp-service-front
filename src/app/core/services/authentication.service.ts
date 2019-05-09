@@ -31,7 +31,17 @@ export class AuthenticationService {
 
   redirectToLogin(): boolean {
     this.router.navigate(['/login']);
-    return true;
+    return false;
+  }
+
+  async verifyToken() {
+    const url = this.server + '/authenticate/verify-token';
+    try {
+      await this.http.get(url).toPromise();
+      return true;
+    } catch (e) {
+      return this.redirectToLogin();
+    }
   }
 
   setUserInfo(userInfo) {

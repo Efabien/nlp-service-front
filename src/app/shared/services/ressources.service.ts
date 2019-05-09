@@ -5,16 +5,17 @@ import { environment } from '../../../environments/environment'
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
-  server: string;
+export class RessourcesService {
+  private server: string;
+
   constructor(
     private http: HttpClient
   ) {
     this.server = environment.hosts.server;
   }
 
-  authenticate(login) {
-    const url = `${this.server}/authenticate`;
-    return this.http.post(url, login).toPromise();
+  getList() {
+    const url = `${this.server}/resources`;
+    return this.http.get(url).toPromise();
   }
 }
