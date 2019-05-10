@@ -1,0 +1,14 @@
+<div *ngFor="let knowledge of knowledges">
+  <mat-accordion multi="true">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{knowledge.theme}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div *ngFor="let intent of Object.keys(knowledge.intents)">
+        <a mat-list-item>{{intent}}</a>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

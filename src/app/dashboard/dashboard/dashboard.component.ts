@@ -8,7 +8,7 @@ import { ErrorService } from '../../shared/services/error.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  ressources: any;
+  knowledges: [];
   constructor(
     private ressourcesService: RessourcesService,
     private errorService: ErrorService
@@ -16,8 +16,9 @@ export class DashboardComponent implements OnInit {
 
   async ngOnInit() {
     try {
-      this.ressources = await this.ressourcesService.getList();
-      console.log(this.ressources);
+      const { knowledges }: any = await this.ressourcesService.getList();
+      this.knowledges = knowledges;
+      console.log(this.knowledges)
     } catch (e) {
       this.errorService.show(e);
     }

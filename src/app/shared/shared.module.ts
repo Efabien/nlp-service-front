@@ -7,11 +7,15 @@ import { ErrorService } from './services/error.service';
 import { RessourcesService } from './services/ressources.service';
 
 import { NavComponent } from './components/nav/nav.component';
+import { RessourcesListComponent } from './components/ressources-list/ressources-list.component';
 import { MaterialModule } from './material.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
-  declarations: [NavComponent],
+  declarations: [
+    NavComponent,
+    RessourcesListComponent
+  ],
   exports: [
     NavComponent,
     MaterialModule,
