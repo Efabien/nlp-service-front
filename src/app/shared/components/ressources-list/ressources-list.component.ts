@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { RessourcesService } from '../../services/ressources.service';
 
 @Component({
   selector: 'ressources-list',
@@ -11,6 +12,14 @@ export class RessourcesListComponent {
   @Input() knowledges: any;
 
 
-  constructor() {}
+  constructor(
+    private ressourcesService: RessourcesService
+  ) {}
 
+  selectIntent(intent) {
+    const intent = this.ressourcesService.selectIntentFromKnowledge(
+      this.knowledges, intent
+    );
+    this.ressourcesService.emitSelectedIntent(intent);
+  }
 }

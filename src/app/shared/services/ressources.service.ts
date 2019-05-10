@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment'
 
@@ -7,6 +7,7 @@ import { environment } from '../../../environments/environment'
 })
 export class RessourcesService {
   private server: string;
+  public activeIntent: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private http: HttpClient
@@ -17,5 +18,16 @@ export class RessourcesService {
   getList() {
     const url = `${this.server}/resources`;
     return this.http.get(url).toPromise();
+  }
+
+  emitSelectedIntent(event) {
+    this.activeIntent.emit(event);
+  }
+
+  selectIntentFromKnowledge(knowledges, intentKey) {
+    const intents = knowledges.reduce((result, item) => {
+      return Object.assign(result, item.intents);
+    }, {}); 
+    return intents[intentKey];
   }
 }

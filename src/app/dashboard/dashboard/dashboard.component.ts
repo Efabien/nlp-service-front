@@ -18,7 +18,10 @@ export class DashboardComponent implements OnInit {
     try {
       const { knowledges }: any = await this.ressourcesService.getList();
       this.knowledges = knowledges;
-      console.log(this.knowledges)
+      console.log(this.knowledges);
+      this.ressourcesService.activeIntent.subscribe(event => {
+        console.log(event);
+      });
     } catch (e) {
       this.errorService.show(e);
     }

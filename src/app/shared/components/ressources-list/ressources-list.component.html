@@ -7,7 +7,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div *ngFor="let intent of Object.keys(knowledge.intents)">
-        <a mat-list-item>{{intent}}</a>
+        <a mat-list-item (click)="selectIntent(intent)">{{intent}}</a>
       </div>
     </mat-expansion-panel>
   </mat-accordion>
