@@ -1,0 +1,14 @@
+<mat-card *ngIf="intent">
+  <mat-card-header>
+    <mat-card-title>{{intent.title}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div *ngFor="let text of intent.texts">
+      <textarea class="text">{{text}}</textarea>
+    </div>
+    <textarea class="text" placeholder="Add your sentence here"></textarea>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary">Save</button>
+  </mat-card-actions>
+</mat-card>

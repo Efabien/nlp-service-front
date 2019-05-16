@@ -10,17 +10,20 @@ import { NavComponent } from './components/nav/nav.component';
 import { RessourcesListComponent } from './components/ressources-list/ressources-list.component';
 import { MaterialModule } from './material.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { IntentComponent } from './components/intent/intent.component';
 
 @NgModule({
   declarations: [
     NavComponent,
-    RessourcesListComponent
+    RessourcesListComponent,
+    IntentComponent
   ],
   exports: [
     NavComponent,
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    IntentComponent,
   ],
   imports: [
     CommonModule,

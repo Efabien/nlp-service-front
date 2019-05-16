@@ -9,21 +9,31 @@ import { ErrorService } from '../../shared/services/error.service';
 })
 export class DashboardComponent implements OnInit {
   knowledges: [];
+  activeIntent: any;
   constructor(
     private ressourcesService: RessourcesService,
     private errorService: ErrorService
   ) { }
 
   async ngOnInit() {
+    await this.loadRessource();
+    this.subscribeToActiveIntent();
+  }
+
+  private async loadRessource() {
     try {
       const { knowledges }: any = await this.ressourcesService.getList();
       this.knowledges = knowledges;
       console.log(this.knowledges);
-      this.ressourcesService.activeIntent.subscribe(event => {
-        console.log(event);
-      });
     } catch (e) {
       this.errorService.show(e);
     }
+  }
+
+  private subscribeToActiveIntent() {
+    this.ressourcesService.activeIntent.subscribe(({ selection, title }) => {
+      this.activeIntent = selection;
+      this.activeIntent.title = title;
+    });
   }
 }

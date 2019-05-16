@@ -1,4 +1,7 @@
 <app-nav [knowledges]="knowledges"></app-nav>
-<p class="component">
-  dashboard works!
-</p>
+<app-intent
+  *ngIf="activeIntent"
+  class="component intent"
+  [activeIntent]="activeIntent"
+>
+</app-intent>

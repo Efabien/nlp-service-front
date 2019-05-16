@@ -20,7 +20,7 @@ export class ErrorService {
 
   private getMessage(e) {
     console.log(e);
-    return e.message || e.errMessage ||
+    return (e.error && e.error.message) || e.message || e.errMessage ||
       this.messageMap[e.status] ||
       e._body && JSON.parse(e._body).message ||
       'Somthing went wrong';

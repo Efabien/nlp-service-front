@@ -17,9 +17,9 @@ export class RessourcesListComponent {
   ) {}
 
   selectIntent(intent) {
-    const intent = this.ressourcesService.selectIntentFromKnowledge(
+    const selection = this.ressourcesService.selectIntentFromKnowledge(
       this.knowledges, intent
     );
-    this.ressourcesService.emitSelectedIntent(intent);
+    this.ressourcesService.emitSelectedIntent({ selection, title: intent });
   }
 }
