@@ -5,6 +5,7 @@ import { GuardService } from './services/guard.service';
 
 import { ErrorService } from './services/error.service';
 import { RessourcesService } from './services/ressources.service';
+import { NotificationService } from './services/notification.service';
 
 import { NavComponent } from './components/nav/nav.component';
 import { RessourcesListComponent } from './components/ressources-list/ressources-list.component';
@@ -35,7 +36,8 @@ import { IntentComponent } from './components/intent/intent.component';
   providers: [
     GuardService,
     RessourcesService,
-    ErrorService
+    ErrorService,
+    NotificationService,
   ]
 })
 export class SharedModule { }

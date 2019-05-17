@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material'
+import { MatSnackBar } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class ErrorService {
 
   show(e) {
     const errMessage = this.getMessage(e);
-    this.snackBar.open(errMessage, null, { duration: 30000 });
+    this.snackBar.open(errMessage, null, { duration: 5000 });
   }
 
   private getMessage(e) {

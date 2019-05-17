@@ -8,7 +8,7 @@ import { ErrorService } from '../../shared/services/error.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  knowledges: [];
+  knowledges: any[];
   activeIntent: any;
   constructor(
     private ressourcesService: RessourcesService,
@@ -34,6 +34,15 @@ export class DashboardComponent implements OnInit {
     this.ressourcesService.activeIntent.subscribe(({ selection, title }) => {
       this.activeIntent = selection;
       this.activeIntent.title = title;
+    });
+  }
+
+  private subscribeToKnwldgeUpdate() {
+    this.ressourcesService.knowledgeUpdate.subscribe((knowledge: any) => {
+      this.knowledges = this.knowledges.map((item: any) => {
+        if (item._id === knowledge._id) item = knowledge;
+        return item;
+      });
     });
   }
 }

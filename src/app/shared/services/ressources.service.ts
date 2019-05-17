@@ -8,6 +8,7 @@ import { environment } from '../../../environments/environment'
 export class RessourcesService {
   private server: string;
   public activeIntent: EventEmitter<any> = new EventEmitter<any>();
+  public knowledgeUpdate: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private http: HttpClient
@@ -24,10 +25,22 @@ export class RessourcesService {
     this.activeIntent.emit(event);
   }
 
+  emitKnwldgeUpdate(knowledge) {
+    this.knowledgeUpdate.emit(knowledge);
+  }
+
   selectIntentFromKnowledge(knowledges, intentKey) {
     const intents = knowledges.reduce((result, item) => {
+      Object.keys(item.intents).forEach(key => {
+        item.intents[key].id = item._id;
+      });
       return Object.assign(result, item.intents);
     }, {}); 
     return intents[intentKey];
+  }
+
+  update(id, data) {
+    const url = `${this.server}/resources/${id}`;
+    return this.http.patch(url, data).toPromise();
   }
 }
