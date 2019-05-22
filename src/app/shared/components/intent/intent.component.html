@@ -6,8 +6,9 @@
     <form>
       <div *ngFor="let text of intent.texts; let i = index">
         <mat-form-field class="text">
-          <input matInput [(ngModel)]="intent.texts[i]" class="text" [name]="(text + index)"/>
+          <input matInput [(ngModel)]="intent.texts[i]" class="text" [name]="(text + i)"/>
         </mat-form-field>
+        <button class="remove-text" mat-button (click)="remove(i)">X</button>
       </div>
       <mat-form-field class="text">
         <input matInput type="text" [(ngModel)]="newText" placeholder="Add your sentence here" class="text" name="newText">
@@ -15,6 +16,9 @@
     </form>
   </mat-card-content>
   <mat-card-actions>
-    <button [disabled]="!hasChanges()" mat-raised-button color="primary" (click)="save()">Save</button>
+    <button [disabled]="!hasChanges() || isSomeTextEmpty() || hasNoTextToSubmit()" mat-raised-button color="primary" (click)="save()">
+      Save
+    </button>
+    <mat-error class="error-message" *ngIf="isSomeTextEmpty()">Empty sentences not allowed</mat-error>
   </mat-card-actions>
 </mat-card>

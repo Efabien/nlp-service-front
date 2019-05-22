@@ -1,7 +1,13 @@
-<app-nav [knowledges]="knowledges"></app-nav>
+<app-nav [knowledges]="knowledges" [updatedKnowledge]="updatedKnowledge"></app-nav>
 <app-intent
-  *ngIf="activeIntent"
+  *ngIf="componentParams.onScreen === 'intent'"
   class="component intent"
   [activeIntent]="activeIntent"
 >
 </app-intent>
+<app-create-intent
+  *ngIf="componentParams.onScreen === 'addIntent'"
+  class="component intent"
+  [knowledgeId]="componentParams.knowledgeId"
+>  
+</app-create-intent>

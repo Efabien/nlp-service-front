@@ -1,0 +1,52 @@
+<mat-card>
+  <mat-card-header class="intent-title">
+    <mat-card-title>
+      <mat-form-field>
+        <input
+          matInput
+          [(ngModel)]="intent.title"
+          placeholder="Your intent name here"
+          [formControl]="titleControl"
+        >
+      </mat-form-field>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form>
+      <div *ngFor="let text of intent.texts; let i = index">
+        <mat-form-field class="text">
+          <input
+            matInput
+            type="text"
+            [name]="(text + i)"
+            [(ngModel)]="intent.texts[i]"
+          >
+        </mat-form-field>
+        <button class="remove-text" mat-button (click)="remove(i)">X</button>
+      </div>
+      <mat-form-field class="text">
+        <input
+          matInput
+          type="text"
+          name="new-intent"
+          [(ngModel)]="intent.new"
+          placeholder="Your sentence here"
+        >
+      </mat-form-field>
+      <button class="remove-text" mat-button (click)="addToList()">Add</button>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="create()"
+      [disabled]="!canCreate()"
+    >
+      Save
+    </button>
+    <mat-error class="error-message" *ngIf="hasEmptySentence()">
+      Empty sentence not allowed
+    </mat-error>
+  </mat-card-actions>
+</mat-card>

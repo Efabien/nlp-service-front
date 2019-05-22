@@ -42,7 +42,7 @@ export class IntentComponent {
         }
       };
       if (this.newText) data.intents[this.intent.title].texts.push(this.newText);
-      const knowledge = await this.ressourcesService.update(this.intent.id, data);
+      const { knowledge } : any = await this.ressourcesService.update(this.intent.id, data);
       this.updateSucceed(knowledge);
     } catch (e) {
       this.errorService.show(e);
@@ -55,11 +55,29 @@ export class IntentComponent {
     this.notificationService.show('your changes were saved successfully');
     this.newText = '';
     this.ressourcesService.emitKnwldgeUpdate(knowledge);
+    const selection = this.ressourcesService.selectIntentFromKnowledge(
+      [knowledge], this.intent.title
+    );
+    this.ressourcesService.emitSelectedIntent({ selection, title: this.intent.title });
   }
 
   hasChanges() {
     return this.stateHash !== sha1(
       this.intent.texts.join('')
     ) || !!this.newText;
+  }
+
+  isSomeTextEmpty() {
+    return this.intent.texts.some(text => !text.length);
+  }
+
+  hasNoTextToSubmit() {
+    return !this.intent.texts.length && !this.newText;
+  }
+
+  remove(index) {
+    const texts = this.intent.texts;
+    this.intent.texts = texts.slice(0, index)
+      .concat(texts.slice(index + 1, this.intent.texts.length));
   }
 }

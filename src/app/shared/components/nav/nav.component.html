@@ -5,7 +5,11 @@
       [opened]="!(isHandset$ | async)">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <ressources-list [knowledges]="knowledges"></ressources-list>
+      <ressources-list
+        [knowledges]="knowledges"
+        [updatedKnowledge]="updatedKnowledge"
+        >
+      </ressources-list>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

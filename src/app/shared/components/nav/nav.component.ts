@@ -12,6 +12,7 @@ export class NavComponent {
   Object = Object;
 
   @Input() knowledges: any;
+  @Input() updatedKnowledge: number;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
