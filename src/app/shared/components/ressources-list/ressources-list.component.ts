@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RessourcesService } from '../../services/ressources.service';
 import { ComponentService } from '../../services/component.service';
 
@@ -7,26 +7,28 @@ import { ComponentService } from '../../services/component.service';
   templateUrl: './ressources-list.component.html',
   styleUrls: ['./ressources-list.component.css']
 })
-export class RessourcesListComponent {
+export class RessourcesListComponent implements OnInit {
   Object = Object;
-  _knowledges: any[];
-  expansionControl = [false, false];
+  _knowledges: any[] = [];
+  expansionControl: any[] = [];
 
   @Input('knowledges')
   set knowledges(knowledges: any[]) {
+    if (!knowledges || !knowledges.length) return;
     this._knowledges = knowledges;
+    this.expansionControl = knowledges.map(item => {
+      return { state: false, intentState: false, keywordState: false };
+    });
   }
-
-  @Input('updatedKnowledge')
-  set updatedKnowledge(updatedKnowledge: number) {
-    this.expansionControl[updatedKnowledge] = true;
-  }
-
 
   constructor(
     private ressourcesService: RessourcesService,
     private componentService: ComponentService
   ) {}
+
+  async ngOnInit() {
+    this.subscribeToKnwldgeUpdate();
+  }
 
   selectIntent(intent) {
     const selection = this.ressourcesService.selectIntentFromKnowledge(
@@ -35,7 +37,22 @@ export class RessourcesListComponent {
     this.ressourcesService.emitSelectedIntent({ selection, title: intent });
   }
 
+  selectKeyWord(title, selection) {
+    selection.id = this.ressourcesService.getIdFromTitle(
+      this._knowledges, title
+    );
+    this.ressourcesService.emitSelectedKeyWord({ title, selection });
+  }
+
   addIntent(id) {
     this.componentService.activate({ name: 'addIntent', id });
+  }
+
+  private subscribeToKnwldgeUpdate() {
+    this.ressourcesService.knowledgeUpdate.subscribe((event: any) => {
+      const index = this._knowledges.map(item => item._id).indexOf(event.knowledge._id)
+      this.expansionControl[index].state = true;
+      this.expansionControl[index][event.source + 'State'] = true;
+    });
   }
 }

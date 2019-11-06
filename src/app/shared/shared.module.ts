@@ -14,6 +14,8 @@ import { MaterialModule } from './material.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { IntentComponent } from './components/intent/intent.component';
 import { CreateIntentComponent } from './components/intent/create-intent/create-intent.component';
+import { KeywordComponent } from './components/keyword/keyword.component';
+import { NewComponent } from './components/new/new.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { CreateIntentComponent } from './components/intent/create-intent/create-
     RessourcesListComponent,
     IntentComponent,
     CreateIntentComponent,
+    KeywordComponent,
+    NewComponent,
   ],
   exports: [
     NavComponent,
@@ -28,7 +32,9 @@ import { CreateIntentComponent } from './components/intent/create-intent/create-
     FormsModule,
     ReactiveFormsModule,
     IntentComponent,
+    KeywordComponent,
     CreateIntentComponent,
+    NewComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,21 @@
+<mat-card *ngIf="keyWord">
+  <mat-card-header>
+    <mat-card-title>{{title}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form>
+      <div *ngFor="let key of Object.keys(keyWord); let i = index">
+        <mat-form-field>
+          <mat-label>{{key}}</mat-label>
+          <input matInput [(ngModel)]="holder[key]" [name]="key"/>
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button [disabled]="!hasChanges() || isSomeKeyWordEmpty()" mat-raised-button color="primary" (click)="save()">
+      Save
+    </button>
+    <mat-error class="error-message" *ngIf="isSomeKeyWordEmpty()">Empty keywords not allowed</mat-error>
+  </mat-card-actions>
+</mat-card>

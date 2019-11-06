@@ -10,8 +10,8 @@ import { ComponentService } from '../../shared/services/component.service';
 })
 export class DashboardComponent implements OnInit {
   knowledges: any[];
-  updatedKnowledge: number = -1;
   activeIntent: any;
+  activeKeyWord: any;
   onScreen: string;
   componentParams: any = {
     onScreen: ''
@@ -25,8 +25,10 @@ export class DashboardComponent implements OnInit {
   async ngOnInit() {
     await this.loadRessource();
     this.subscribeToActiveIntent();
+    this.subscribeToActiveKeyWord();
     this.subscribeToActiveComponent();
     this.subscribeToKnwldgeUpdate();
+    this.subscribeToNewKnldge();
   }
 
   private async loadRessource() {
@@ -47,16 +49,22 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  private subscribeToActiveKeyWord() {
+    this.ressourcesService.activeKeyWord.subscribe(({ selection, title }) => {
+      this.activeKeyWord = selection;
+      this.activeKeyWord.title = title;
+      this.componentParams.onScreen = 'keyWord';
+    });
+  }
+
   private subscribeToKnwldgeUpdate() {
-    this.ressourcesService.knowledgeUpdate.subscribe((knowledge: any) => {
+    this.ressourcesService.knowledgeUpdate.subscribe((event: any) => {
       const ids = this.knowledges.map((item: any) => item._id);
-      const index = ids.indexOf(knowledge._id);
+      const index = ids.indexOf(event.knowledge._id);
       if (index < 0) {
-        this.updatedKnowledge = this.knowledges.length;
-        return this.knowledges.push(knowledge);
+        return this.knowledges.push(event.knowledge);
       }
-      this.updatedKnowledge = index;
-      return this.knowledges[index] = knowledge;
+      return this.knowledges[index] = event.knowledge;
     });
   }
 
@@ -64,6 +72,12 @@ export class DashboardComponent implements OnInit {
     this.componentService.active.subscribe((event: any) => {
       this.componentParams.onScreen = event.name;
       this.componentParams.knowledgeId = event.id;
+    });
+  }
+
+  private subscribeToNewKnldge() {
+    this.ressourcesService.createKldge.subscribe(() => {
+      this.componentParams.onScreen = 'new_knwldge';
     });
   }
 }

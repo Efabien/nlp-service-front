@@ -7,10 +7,17 @@
     <mat-nav-list>
       <ressources-list
         [knowledges]="knowledges"
-        [updatedKnowledge]="updatedKnowledge"
         >
       </ressources-list>
     </mat-nav-list>
+    <button
+        class="new-button"
+        color="primary"
+        mat-raised-button
+        (click)="create()"
+    >
+      create
+    </button>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">

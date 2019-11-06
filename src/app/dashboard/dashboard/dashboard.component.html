@@ -5,9 +5,20 @@
   [activeIntent]="activeIntent"
 >
 </app-intent>
+<app-keyword
+  *ngIf="componentParams.onScreen === 'keyWord'"
+  class="component"
+  [activeKeyWord]="activeKeyWord"
+>
+</app-keyword>
 <app-create-intent
   *ngIf="componentParams.onScreen === 'addIntent'"
   class="component intent"
   [knowledgeId]="componentParams.knowledgeId"
 >  
 </app-create-intent>
+<app-new
+    *ngIf="componentParams.onScreen === 'new_knwldge'"
+    class="component"
+>
+</app-new>

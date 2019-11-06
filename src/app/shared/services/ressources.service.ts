@@ -8,7 +8,9 @@ import { environment } from '../../../environments/environment'
 export class RessourcesService {
   private server: string;
   public activeIntent: EventEmitter<any> = new EventEmitter<any>();
+  public activeKeyWord: EventEmitter<any> = new EventEmitter<any>();
   public knowledgeUpdate: EventEmitter<any> = new EventEmitter<any>();
+  public createKldge: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private http: HttpClient
@@ -25,8 +27,16 @@ export class RessourcesService {
     this.activeIntent.emit(event);
   }
 
+  emitSelectedKeyWord(event) {
+    this.activeKeyWord.emit(event);
+  }
+
   emitKnwldgeUpdate(knowledge) {
     this.knowledgeUpdate.emit(knowledge);
+  }
+
+  emitCreation() {
+    this.createKldge.emit();
   }
 
   selectIntentFromKnowledge(knowledges, intentKey) {
@@ -37,6 +47,13 @@ export class RessourcesService {
       return Object.assign(result, item.intents);
     }, {}); 
     return intents[intentKey];
+  }
+
+  getIdFromTitle(knowledges, title) {
+    return knowledges.find(knw => {
+      return Object.keys(knw.intents)
+        .concat(Object.keys(knw.keyWords)).includes(title)
+    })._id;
   }
 
   update(id, data) {

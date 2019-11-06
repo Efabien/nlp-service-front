@@ -1,15 +1,32 @@
 <div *ngFor="let knowledge of _knowledges; let i = index;">
   <mat-accordion multi="true">
-    <mat-expansion-panel [expanded]="expansionControl[i]">
+    <mat-expansion-panel [expanded]="expansionControl[i].state">
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{knowledge.theme}}
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div *ngFor="let intent of Object.keys(knowledge.intents)">
-        <a mat-list-item (click)="selectIntent(intent)">{{intent}}</a>
-      </div>
-      <a mat-raised-button (click)="addIntent(knowledge._id)"> Add intent</a>
+      <mat-expansion-panel [expanded]="expansionControl[i].intentState">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Intents
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngFor="let intent of Object.keys(knowledge.intents)">
+          <a mat-list-item (click)="selectIntent(intent)">{{intent}}</a>
+        </div>
+        <a mat-raised-button (click)="addIntent(knowledge._id)"> Add intent</a>
+      </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="expansionControl[i].keywordState">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Keywords
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngFor="let word of Object.keys(knowledge.keyWords)">
+          <a mat-list-item (click)="selectKeyWord(word, knowledge.keyWords[word])">{{word}}</a>
+        </div>
+      </mat-expansion-panel>
     </mat-expansion-panel>
   </mat-accordion>
 </div>

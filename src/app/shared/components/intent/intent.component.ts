@@ -54,7 +54,7 @@ export class IntentComponent {
   private updateSucceed(knowledge) {
     this.notificationService.show('your changes were saved successfully');
     this.newText = '';
-    this.ressourcesService.emitKnwldgeUpdate(knowledge);
+    this.ressourcesService.emitKnwldgeUpdate({ knowledge, source: 'intent' });
     const selection = this.ressourcesService.selectIntentFromKnowledge(
       [knowledge], this.intent.title
     );
