@@ -11,6 +11,7 @@ export class RessourcesService {
   public activeKeyWord: EventEmitter<any> = new EventEmitter<any>();
   public knowledgeUpdate: EventEmitter<any> = new EventEmitter<any>();
   public createKldge: EventEmitter<any> = new EventEmitter<any>();
+  public reloadData: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private http: HttpClient
@@ -39,6 +40,10 @@ export class RessourcesService {
     this.createKldge.emit();
   }
 
+  reload() {
+    this.reloadData.emit();
+  }
+
   selectIntentFromKnowledge(knowledges, intentKey) {
     const intents = knowledges.reduce((result, item) => {
       Object.keys(item.intents).forEach(key => {
@@ -59,5 +64,10 @@ export class RessourcesService {
   update(id, data) {
     const url = `${this.server}/resources/${id}`;
     return this.http.patch(url, data).toPromise();
+  }
+
+  add(data) {
+    const url = `${this.server}/resources`;
+    return this.http.post(url, data).toPromise();
   }
 }

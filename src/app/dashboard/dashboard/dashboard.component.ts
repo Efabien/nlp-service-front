@@ -29,9 +29,10 @@ export class DashboardComponent implements OnInit {
     this.subscribeToActiveComponent();
     this.subscribeToKnwldgeUpdate();
     this.subscribeToNewKnldge();
+    this.subscribeToReload();
   }
 
-  private async loadRessource() {
+  async loadRessource() {
     try {
       const { knowledges }: any = await this.ressourcesService.getList();
       this.knowledges = knowledges;
@@ -78,6 +79,12 @@ export class DashboardComponent implements OnInit {
   private subscribeToNewKnldge() {
     this.ressourcesService.createKldge.subscribe(() => {
       this.componentParams.onScreen = 'new_knwldge';
+    });
+  }
+
+  private subscribeToReload() {
+    this.ressourcesService.reloadData.subscribe(async() => {
+      await this.loadRessource();
     });
   }
 }

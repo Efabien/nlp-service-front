@@ -1,3 +1,38 @@
-<p>
-  new works!
-</p>
+<mat-card class="container">
+  <mat-form-field class="text">
+    <input
+      matInput
+      [(ngModel)]="intent.theme"
+      class="text"
+      [name]="title"
+      placeholder="Theme"/>
+  </mat-form-field>
+      <mat-form-field class="text">
+          <input
+            matInput
+            [(ngModel)]="intent.name"
+            class="text"
+            [name]="title"
+            placeholder="Intents name"/>
+        </mat-form-field>
+  <mat-card-content>
+    <form>
+      <div *ngFor="let text of intent.texts; let i = index">
+        <mat-form-field class="text">
+          <input matInput [(ngModel)]="intent.texts[i]" class="text" [name]="(text + i)"/>
+        </mat-form-field>
+        <button class="remove-text" mat-button (click)="remove(i)">X</button>
+      </div>
+      <mat-form-field class="text">
+        <input matInput type="text" [(ngModel)]="newText" placeholder="Add your sentence here" class="text" name="newText">
+      </mat-form-field>
+      <button [disabled]="!newText" class="remove-text" mat-button (click)="add()"> + </button>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button [disabled]="!hasChanges() || isSomeTextEmpty() || hasNoTextToSubmit() ||!isLabeled()" mat-raised-button color="primary" (click)="save()">
+      Save
+    </button>
+    <mat-error class="error-message" *ngIf="isSomeTextEmpty()">Empty sentences not allowed</mat-error>
+  </mat-card-actions>
+</mat-card>
