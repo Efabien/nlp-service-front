@@ -1,0 +1,71 @@
+<mat-card>
+  <mat-card-content>
+    <form>
+      <mat-form-field class="text">
+        <input
+          matInput
+          type="text"
+          name="title"
+          [(ngModel)]="title"
+          placeholder="title"
+        >
+      </mat-form-field><br>
+      <div *ngFor="let pair of pairs; let i = index">
+        <mat-form-field class="text">
+          <input
+            matInput
+            [(ngModel)]="pair.key"
+            class="text"
+            [name]="(pair.key + i)"
+            placeholder="keyword"
+          />
+        </mat-form-field>
+        <mat-form-field class="spaced">
+        <input
+          matInput
+          type="text"
+          [name]="(pair.values + i)"
+          [(ngModel)]="pair.values"
+          placeholder="synonymes"
+        >
+      </mat-form-field>
+        <button class="remove-text" mat-button (click)="remove(i)">X</button>
+      </div>
+      <div class="new-container">
+      <mat-form-field class="text">
+        <input
+          matInput
+          type="text"
+          name="title"
+          [(ngModel)]="key"
+          placeholder="keyword"
+        >
+      </mat-form-field>
+      <mat-form-field class="spaced">
+        <input
+          matInput
+          type="text"
+          name="title"
+          [(ngModel)]="values"
+          placeholder="synonymes (comma separeted)"
+        >
+      </mat-form-field>
+      <button [disabled]="nothingToAdd()" class="add" mat-raised-button (click)="add()"> add </button>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="someEmptySlot() || !title"
+      (click)="save()"
+    >
+      Save
+    </button>
+    <mat-error class="error-message" *ngIf="someEmptySlot()">
+      Empty slot not allowed
+    </mat-error>
+  </mat-card-actions>
+</mat-card>
+

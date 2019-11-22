@@ -22,3 +22,10 @@
     class="component"
 >
 </app-new>
+<app-new-keyword
+  *ngIf="componentParams.onScreen === 'addKeyWords'"
+  class="component intent"
+  [knowledgeId]="componentParams.knowledgeId"
+>
+  
+</app-new-keyword>

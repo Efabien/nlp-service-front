@@ -26,6 +26,7 @@
         <div *ngFor="let word of Object.keys(knowledge.keyWords)">
           <a mat-list-item (click)="selectKeyWord(word, knowledge.keyWords[word])">{{word}}</a>
         </div>
+        <a mat-raised-button (click)="addKeywords(knowledge._id)"> Add keywords</a>
       </mat-expansion-panel>
     </mat-expansion-panel>
   </mat-accordion>

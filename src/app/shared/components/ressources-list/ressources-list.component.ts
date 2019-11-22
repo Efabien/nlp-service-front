@@ -55,4 +55,8 @@ export class RessourcesListComponent implements OnInit {
       this.expansionControl[index][event.source + 'State'] = true;
     });
   }
+
+  private addKeywords(id) {
+    this.componentService.activate({ name: 'addKeyWords', id});
+  }
 }
