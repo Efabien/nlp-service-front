@@ -1,0 +1,14 @@
+<form>
+  <mat-form-field class="text-data">
+    <input [(ngModel)]="data.text" matInput placeholder="your text" name="text">
+  </mat-form-field>
+  <mat-form-field class="select-data">
+    <mat-label>expected intent</mat-label>
+    <mat-select [(ngModel)]="data.expectedIntent" name="expected">
+      <mat-option *ngFor="let intent of _intents" [value]="intent">
+        {{intent}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button [disabled]="badInput()" class="remove-text" mat-button (click)="add()"> + </button>
+</form>

@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RessourcesService } from '../../services/ressources.service';
+import { ComponentService } from '../../services/component.service';
 
 @Component({
   selector: 'app-nav',
@@ -23,10 +24,14 @@ export class NavComponent {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private ressourceService: RessourcesService,
+    private componentService: ComponentService,
   ) {}
 
   create() {
     this.ressourceService.emitCreation();
   }
 
+  test() {
+    this.componentService.activate({ name: 'test' });
+  }
 }

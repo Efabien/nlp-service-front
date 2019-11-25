@@ -1,4 +1,7 @@
-<app-nav [knowledges]="knowledges" [updatedKnowledge]="updatedKnowledge"></app-nav>
+<app-nav
+  [knowledges]="knowledges"
+  [updatedKnowledge]="updatedKnowledge"> 
+</app-nav>
 <app-intent
   *ngIf="componentParams.onScreen === 'intent'"
   class="component intent"
@@ -26,6 +29,12 @@
   *ngIf="componentParams.onScreen === 'addKeyWords'"
   class="component intent"
   [knowledgeId]="componentParams.knowledgeId"
+> 
+</app-new-keyword>
+<app-test
+  *ngIf="componentParams.onScreen === 'test'"
+  class="component"
+  [knowledges]="knowledges"
 >
   
-</app-new-keyword>
+</app-test>

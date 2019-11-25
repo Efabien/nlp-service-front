@@ -17,6 +17,7 @@ import { CreateIntentComponent } from './components/intent/create-intent/create-
 import { KeywordComponent } from './components/keyword/keyword.component';
 import { NewComponent } from './components/new/new.component';
 import { NewKeywordComponent } from './components/new-keyword/new-keyword.component';
+import { TestComponent } from './components/test/test.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { NewKeywordComponent } from './components/new-keyword/new-keyword.compon
     KeywordComponent,
     NewComponent,
     NewKeywordComponent,
+    TestComponent,
   ],
   exports: [
     NavComponent,
@@ -38,6 +40,7 @@ import { NewKeywordComponent } from './components/new-keyword/new-keyword.compon
     CreateIntentComponent,
     NewComponent,
     NewKeywordComponent,
+    TestComponent,
   ],
   imports: [
     CommonModule,

@@ -37,7 +37,8 @@ export class IntentComponent {
       const data = {
         intents: {
           [this.intent.title]: {
-            texts: this.intent.texts
+            texts: this.intent.texts,
+            treshold: this.intent.treshold
           }
         }
       };

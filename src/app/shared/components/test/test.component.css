@@ -1,0 +1,15 @@
+.text-data {
+  width: 68%;
+  margin-right: 2%;
+}
+.select-data {
+  width: 20%;
+  margin-right: 2%;
+}
+
+form {
+  width: 200%;
+  margin-top: 5%;
+  background: #5e09f53b;
+  padding: 3%;
+}
