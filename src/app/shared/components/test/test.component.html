@@ -41,7 +41,12 @@
   <button class="action-button" [disabled]="!cases.length ||isSomeTextEmpty()" mat-raised-button (click)="submiteTest()">
     Submit test
   </button>
-  <button [disabled]="!cases.length ||isSomeTextEmpty()" class="action-button" mat-raised-button>
+  <button
+    [disabled]="!cases.length ||isSomeTextEmpty() || !hasChanges()"
+    class="action-button"
+    mat-raised-button
+    (click)="save()"
+  >
     Save
   </button>
 </div>

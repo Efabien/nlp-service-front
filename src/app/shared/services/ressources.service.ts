@@ -75,4 +75,14 @@ export class RessourcesService {
     const url = `${this.server}/analyses/test`;
     return this.http.post(url, data).toPromise();
   }
+
+  updateTest(data) {
+    const url = `${this.server}/analyses/test`;
+    return this.http.patch(url, data).toPromise();
+  }
+
+  getTestCases() {
+    const url = `${this.server}/analyses/test`;
+    return this.http.get(url).toPromise();
+  }
 }

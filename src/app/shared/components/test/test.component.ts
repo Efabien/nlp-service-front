@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RessourcesService } from '../../services/ressources.service';
 import { ErrorService } from '../../services/error.service';
+import { NotificationService } from '../../services/notification.service';
+import * as sha1 from 'sha1';
 
 @Component({
   selector: 'app-test',
@@ -14,6 +16,7 @@ export class TestComponent implements OnInit {
   _intents: string[];
   processing: boolean;
   successRate: number = null;
+  stateHash: string;
   @Input('knowledges')
   set knowledges(knowledges) {
     this._knwldges = knowledges;
@@ -27,13 +30,35 @@ export class TestComponent implements OnInit {
   constructor(
     private ressourcesService: RessourcesService,
     private errorService: ErrorService,
+    private notificationService: NotificationService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    const { cases }: any = await this.ressourcesService.getTestCases();
+    this._hydrate(cases);
+  }
+
+  _hydrate(cases) {
+    if (!cases.length) return;
+    this.cases = cases.map(item => {
+      let toInject = {
+        input: item.input,
+        expected: item.expected
+      };
+      return toInject;
+    });
+    this.stateHash = this.calculateHash();
+  }
+
+  calculateHash() {
+    return sha1(
+      this.cases.reduce((outPut, current) => {
+        return outPut += current.input + current.expected;
+      }, '')
+    );
   }
 
   add() {
-    console.log(this.data);
     this.cases.push(
       {
         input: this.data.text,
@@ -41,6 +66,10 @@ export class TestComponent implements OnInit {
       }
     )
     this.data = {};
+  }
+
+  hasChanges() {
+    return this.stateHash && this.stateHash !== this.calculateHash();
   }
 
   badInput() {
@@ -64,14 +93,35 @@ export class TestComponent implements OnInit {
       this.processing = true;
       const { successRate, wrongs } : any = await this.ressourcesService.test(
         { cases: this.cases.map(item => {
-          return {
-            input: item.input,
-            expected: item.expected
-          };
-        }) }
+            return {
+              input: item.input,
+              expected: item.expected
+            };
+          })
+        }
       );
       this.successRate = successRate;
       this.injectTestDetails(wrongs);
+    } catch (e) {
+      this.errorService.show(e);
+    } finally {
+      this.processing = false;
+    }
+  }
+
+  async save() {
+    if (this.processing) return;
+    try {
+      await this.ressourcesService.updateTest(
+        { cases: this.cases.map(item => {
+            return {
+              input: item.input,
+              expected: item.expected
+            };
+          })
+        }
+      );
+      this.notificationService.show('your changes were saved successfully');
     } catch (e) {
       this.errorService.show(e);
     } finally {
