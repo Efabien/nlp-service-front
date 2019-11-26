@@ -1,3 +1,27 @@
+<div class="wrapper" *ngFor="let case of cases; let i = index">
+  <mat-form-field class="text-data">
+    <input
+      [(ngModel)]="cases[i].input"
+      matInput
+      name="i + cases[i].input">
+  </mat-form-field>
+  <mat-form-field class="select-data">
+    <mat-select [(ngModel)]="cases[i].expected" name="expected + i">
+      <mat-option *ngFor="let intent of _intents" [value]="intent">
+        {{intent}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button class="remove-text" mat-button (click)="remove(i)"> X </button>
+  <span></span>
+  <div class="bad-result" *ngIf="case.detected">
+    <span> detected intent : {{case.detected.intent}}</span>
+    <span> | </span>
+    <span> score : {{case.detected.score}}</span>
+    <span> | </span>
+    <span> treshold value : {{case.detected.treshold}}</span>
+  </div>
+</div>
 <form>
   <mat-form-field class="text-data">
     <input [(ngModel)]="data.text" matInput placeholder="your text" name="text">
@@ -12,3 +36,15 @@
   </mat-form-field>
   <button [disabled]="badInput()" class="remove-text" mat-button (click)="add()"> + </button>
 </form>
+<mat-error class="error-message" *ngIf="isSomeTextEmpty()">Empty sentences not allowed</mat-error>
+<div class="actions">
+  <button class="action-button" [disabled]="!cases.length ||isSomeTextEmpty()" mat-raised-button (click)="submiteTest()">
+    Submit test
+  </button>
+  <button [disabled]="!cases.length ||isSomeTextEmpty()" class="action-button" mat-raised-button>
+    Save
+  </button>
+</div>
+<span *ngIf="successRate !== null">
+  Success rate : {{successRate}}
+</span>

@@ -70,4 +70,9 @@ export class RessourcesService {
     const url = `${this.server}/resources`;
     return this.http.post(url, data).toPromise();
   }
+
+  test(data) {
+    const url = `${this.server}/analyses/test`;
+    return this.http.post(url, data).toPromise();
+  }
 }

@@ -12,6 +12,8 @@ export class TestComponent implements OnInit {
   data: any = {};
   _knwldges: any[];
   _intents: string[];
+  processing: boolean;
+  successRate: number = null;
   @Input('knowledges')
   set knowledges(knowledges) {
     this._knwldges = knowledges;
@@ -38,10 +40,58 @@ export class TestComponent implements OnInit {
         expected: this.data.expectedIntent
       }
     )
+    this.data = {};
   }
 
   badInput() {
     return !this.data.text || !this.data.expectedIntent;
   }
 
+  remove(index) {
+    this.cases = this.cases.slice(0, index)
+    .concat(this.cases.slice(index + 1));
+  }
+
+  isSomeTextEmpty() {
+    return this.cases.some(item => {
+      return !item.input;
+    });
+  }
+
+  async submiteTest() {
+    if (this.processing) return;
+    try {
+      this.processing = true;
+      const { successRate, wrongs } : any = await this.ressourcesService.test(
+        { cases: this.cases.map(item => {
+          return {
+            input: item.input,
+            expected: item.expected
+          };
+        }) }
+      );
+      this.successRate = successRate;
+      this.injectTestDetails(wrongs);
+    } catch (e) {
+      this.errorService.show(e);
+    } finally {
+      this.processing = false;
+    }
+  }
+
+  injectTestDetails(wrongs) {
+    if (!wrongs.length) {
+      this.cases = this.cases.map(item => {
+        delete item.detected;
+        return item;
+      });
+      return;
+    }
+    this.cases = this.cases.map(item => {
+      let wrongItem = wrongs.find(w => w.input === item.input);
+      if (wrongItem) item.detected = wrongItem.detected;
+      else delete item.detected;
+      return item;
+    });
+  }
 }
