@@ -81,4 +81,8 @@ export class IntentComponent {
     this.intent.texts = texts.slice(0, index)
       .concat(texts.slice(index + 1, this.intent.texts.length));
   }
+
+  trackByFn(index: any, item: any) {
+     return index;
+  }
 }

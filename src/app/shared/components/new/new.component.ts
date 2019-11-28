@@ -54,7 +54,8 @@ export class NewComponent implements OnInit {
         theme: this.intent.theme,
         intents: {
           [this.intent.name]: {
-            texts: this.intent.texts
+            texts: this.intent.texts,
+            treshold: 0
           }
         }
       };

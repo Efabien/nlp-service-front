@@ -3,17 +3,17 @@
     <mat-card-title>{{intent.title}}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <form>
-      <div *ngFor="let text of intent.texts; let i = index">
+    
+      <div *ngFor="let text of intent.texts; let i = index; trackBy:trackByFn">
         <mat-form-field class="text">
-          <input matInput [(ngModel)]="intent.texts[i]" class="text" [name]="(text + i)"/>
+          <input matInput [(ngModel)]="intent.texts[i]" class="text" [name]="(intent.texts[i] + i)"/>
         </mat-form-field>
         <button class="remove-text" mat-button (click)="remove(i)">X</button>
       </div>
       <mat-form-field class="text">
         <input matInput type="text" [(ngModel)]="newText" placeholder="Add your sentence here" class="text" name="newText">
       </mat-form-field>
-    </form>
+   
   </mat-card-content>
   <mat-card-actions>
     <button [disabled]="!hasChanges() || isSomeTextEmpty() || hasNoTextToSubmit()" mat-raised-button color="primary" (click)="save()">

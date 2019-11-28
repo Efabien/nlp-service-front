@@ -16,7 +16,7 @@ export class TestComponent implements OnInit {
   _intents: string[];
   processing: boolean;
   successRate: number = null;
-  stateHash: string;
+  stateHash: string = '';
   @Input('knowledges')
   set knowledges(knowledges) {
     this._knwldges = knowledges;
@@ -69,7 +69,7 @@ export class TestComponent implements OnInit {
   }
 
   hasChanges() {
-    return this.stateHash && this.stateHash !== this.calculateHash();
+    return this.stateHash !== this.calculateHash();
   }
 
   badInput() {
