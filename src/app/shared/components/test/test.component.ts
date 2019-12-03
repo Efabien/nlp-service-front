@@ -113,6 +113,7 @@ export class TestComponent implements OnInit {
   async save() {
     if (this.saveProcessing) return;
     try {
+      this.saveProcessing = true;
       await this.ressourcesService.updateTest(
         { cases: this.cases.map(item => {
             return {
