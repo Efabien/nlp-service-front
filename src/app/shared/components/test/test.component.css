@@ -39,3 +39,12 @@ form {
 .loader {
   margin-left: 50%;
 }
+
+.bad-match {
+  border-style: solid;
+  border-width: thin;
+  margin: 0.5%;
+  padding: 0.5%;
+  border-radius: 5px;
+  border-color: #ff000073;
+}

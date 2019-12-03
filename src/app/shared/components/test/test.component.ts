@@ -26,7 +26,6 @@ export class TestComponent implements OnInit {
       .reduce((result, item) => {
         return result.concat(Object.keys(item));
       }, []);
-    console.log(this._intents)
   }
   constructor(
     private ressourcesService: RessourcesService,
@@ -141,8 +140,11 @@ export class TestComponent implements OnInit {
     }
     this.cases = this.cases.map(item => {
       let wrongItem = wrongs.find(w => w.input === item.input);
-      if (wrongItem) item.detected = wrongItem.detected;
-      else delete item.detected;
+      if (wrongItem) {
+        item.detected = wrongItem.detected;
+      } else {
+        delete item.detected;
+      }
       return item;
     });
   }

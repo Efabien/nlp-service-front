@@ -21,6 +21,10 @@
     <span> score : {{case.detected.score}}</span>
     <span> | </span>
     <span> treshold value : {{case.detected.treshold}}</span>
+    <span> | bad matchs : </span>
+    <span *ngFor="let match of case.detected.matchs">
+      <span class="bad-match">{{match}}</span>
+    </span>
   </div>
 </div>
 <form>
