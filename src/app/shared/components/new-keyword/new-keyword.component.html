@@ -60,8 +60,9 @@
       color="primary"
       [disabled]="someEmptySlot() || !title"
       (click)="save()"
-    >
-      Save
+    > 
+      <mat-spinner [diameter]="40" class="action-loader" *ngIf="processing"></mat-spinner>
+      <span *ngIf="!processing">Save</span>
     </button>
     <mat-error class="error-message" *ngIf="someEmptySlot()">
       Empty slot not allowed

@@ -14,7 +14,8 @@
   </mat-card-content>
   <mat-card-actions>
     <button [disabled]="!hasChanges() || isSomeKeyWordEmpty()" mat-raised-button color="primary" (click)="save()">
-      Save
+      <mat-spinner [diameter]="40" class="action-loader" *ngIf="processing"></mat-spinner>
+      <span *ngIf="!processing">Save</span>
     </button>
     <mat-error class="error-message" *ngIf="isSomeKeyWordEmpty()">Empty keywords not allowed</mat-error>
   </mat-card-actions>

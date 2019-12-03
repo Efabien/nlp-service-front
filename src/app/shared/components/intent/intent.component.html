@@ -17,7 +17,8 @@
   </mat-card-content>
   <mat-card-actions>
     <button [disabled]="!hasChanges() || isSomeTextEmpty() || hasNoTextToSubmit()" mat-raised-button color="primary" (click)="save()">
-      Save
+      <mat-spinner [diameter]="40" class="action-loader" *ngIf="processing"></mat-spinner>
+      <span *ngIf="!processing">Save</span>
     </button>
     <mat-error class="error-message" *ngIf="isSomeTextEmpty()">Empty sentences not allowed</mat-error>
   </mat-card-actions>

@@ -4,7 +4,7 @@
       matInput
       [(ngModel)]="intent.theme"
       class="text"
-      [name]="title"
+      name="theme"
       placeholder="Theme"/>
   </mat-form-field>
       <mat-form-field class="text">
@@ -12,7 +12,7 @@
             matInput
             [(ngModel)]="intent.name"
             class="text"
-            [name]="title"
+            name="title"
             placeholder="Intents name"/>
         </mat-form-field>
   <mat-card-content>
@@ -31,7 +31,8 @@
   </mat-card-content>
   <mat-card-actions>
     <button [disabled]="!hasChanges() || isSomeTextEmpty() || hasNoTextToSubmit() ||!isLabeled()" mat-raised-button color="primary" (click)="save()">
-      Save
+      <mat-spinner [diameter]="40" class="action-loader" *ngIf="processing"></mat-spinner>
+      <span *ngIf="!processing">Save</span>
     </button>
     <mat-error class="error-message" *ngIf="isSomeTextEmpty()">Empty sentences not allowed</mat-error>
   </mat-card-actions>

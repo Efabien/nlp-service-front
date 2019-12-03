@@ -1,3 +1,4 @@
+<mat-spinner *ngIf="!_knowledges.length"></mat-spinner>
 <div *ngFor="let knowledge of _knowledges; let i = index;">
   <mat-accordion multi="true">
     <mat-expansion-panel [expanded]="expansionControl[i].state">

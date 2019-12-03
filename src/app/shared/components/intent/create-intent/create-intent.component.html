@@ -43,7 +43,8 @@
       (click)="create()"
       [disabled]="!canCreate()"
     >
-      Save
+      <mat-spinner [diameter]="40" class="action-loader" *ngIf="processing"></mat-spinner>
+      <span *ngIf="!processing">Save</span>
     </button>
     <mat-error class="error-message" *ngIf="hasEmptySentence()">
       Empty sentence not allowed

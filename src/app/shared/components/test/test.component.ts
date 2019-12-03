@@ -15,6 +15,7 @@ export class TestComponent implements OnInit {
   _knwldges: any[];
   _intents: string[];
   processing: boolean;
+  saveProcessing: boolean;
   successRate: number = null;
   stateHash: string = '';
   @Input('knowledges')
@@ -110,7 +111,7 @@ export class TestComponent implements OnInit {
   }
 
   async save() {
-    if (this.processing) return;
+    if (this.saveProcessing) return;
     try {
       await this.ressourcesService.updateTest(
         { cases: this.cases.map(item => {
@@ -125,7 +126,7 @@ export class TestComponent implements OnInit {
     } catch (e) {
       this.errorService.show(e);
     } finally {
-      this.processing = false;
+      this.saveProcessing = false;
     }
   }
 

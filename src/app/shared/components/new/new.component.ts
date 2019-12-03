@@ -81,7 +81,7 @@ export class NewComponent implements OnInit {
     this.newText = null;
   }
 
-  private isLabeled() {
+  isLabeled() {
     return !!this.intent.theme && !!this.intent.name;
   }
 

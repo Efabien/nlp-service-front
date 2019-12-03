@@ -1,3 +1,4 @@
+<mat-spinner class="loader" *ngIf="!cases.length"></mat-spinner>
 <div class="wrapper" *ngFor="let case of cases; let i = index">
   <mat-form-field class="text-data">
     <input
@@ -39,7 +40,8 @@
 <mat-error class="error-message" *ngIf="isSomeTextEmpty()">Empty sentences not allowed</mat-error>
 <div class="actions">
   <button class="action-button" [disabled]="!cases.length ||isSomeTextEmpty()" mat-raised-button (click)="submiteTest()">
-    Submit test
+    <mat-spinner [diameter]="40" class="action-loader" *ngIf="processing"></mat-spinner>
+    <span *ngIf="!processing">Submit test</span>
   </button>
   <button
     [disabled]="!cases.length ||isSomeTextEmpty() || !hasChanges()"
@@ -47,7 +49,8 @@
     mat-raised-button
     (click)="save()"
   >
-    Save
+    <mat-spinner [diameter]="40" class="action-loader" *ngIf="saveProcessing"></mat-spinner>
+    <span *ngIf="!saveProcessing">Save </span>
   </button>
 </div>
 <span *ngIf="successRate !== null">

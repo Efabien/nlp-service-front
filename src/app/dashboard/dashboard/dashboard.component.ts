@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
   componentParams: any = {
     onScreen: ''
   };
+  updatedKnowledge: any;
   constructor(
     private ressourcesService: RessourcesService,
     private errorService: ErrorService,
