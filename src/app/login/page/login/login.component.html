@@ -31,7 +31,8 @@
       (click)="submit()"
       [disabled]="emailControl.invalid || pswdControl.invalid"
     >
-      Connect
+      <mat-spinner [diameter]="40" class="action-loader" *ngIf="processing"></mat-spinner>  
+      <span *ngIf="!processing">Connect</span>
     </button>
   </form>
 </mat-card>

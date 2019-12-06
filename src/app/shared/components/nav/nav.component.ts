@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RessourcesService } from '../../services/ressources.service';
 import { ComponentService } from '../../services/component.service';
+import { AuthenticationService }  from '../../../core/services/authentication.service';
 
 @Component({
   selector: 'app-nav',
@@ -25,6 +26,7 @@ export class NavComponent {
     private breakpointObserver: BreakpointObserver,
     private ressourceService: RessourcesService,
     private componentService: ComponentService,
+    private authenticationService: AuthenticationService,
   ) {}
 
   create() {
@@ -33,5 +35,9 @@ export class NavComponent {
 
   test() {
     this.componentService.activate({ name: 'test' });
+  }
+
+  logout() {
+    this.authenticationService.logout();
   }
 }

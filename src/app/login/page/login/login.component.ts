@@ -16,7 +16,8 @@ export class LoginComponent {
     Validators.required,
     Validators.email
   ]);
-  pswdControl = new FormControl('', [Validators.required]);
+    pswdControl = new FormControl('', [Validators.required]);
+  processing: boolean;
 
   constructor(
     private loginService: LoginService,
@@ -26,7 +27,9 @@ export class LoginComponent {
   ) { }
 
   async submit() {
+    if (this.processing) return;
     try {
+      this.processing = true;
       const resp: any = await this.loginService.authenticate(this.data);
       this.authService.setUserInfo(
         {
@@ -37,6 +40,8 @@ export class LoginComponent {
       this.router.navigate(['/dashboard']);
     } catch (e) {
       this.errorSerivce.show(e);
+    } finally {
+      this.processing = false;
     }
   }
 

@@ -49,4 +49,9 @@ export class AuthenticationService {
     localStorage.setItem('token', userInfo.token);
     this.userInfoChanged.next(userInfo);
   }
+
+  logout(): boolean {
+    localStorage.clear();
+     return this.redirectToLogin();
+  }
 }
