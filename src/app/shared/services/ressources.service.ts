@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment'
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class RessourcesService {
   public reloadData: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
   ) {
     this.server = environment.hosts.server;
   }

@@ -1,0 +1,18 @@
+<mat-spinner *ngIf="processing"></mat-spinner>
+<div class="wrapper">
+  <div *ngFor="let app of apps">
+    <button
+      mat-button
+      class="app-item"
+    >
+      {{app.name}}
+    </button>
+  </div>
+  <button
+    mat-button
+    class="app-item"
+    (click)="showModal()"
+  >
+    +
+  </button>
+</div>

@@ -7,6 +7,7 @@ import { ErrorService } from './services/error.service';
 import { RessourcesService } from './services/ressources.service';
 import { NotificationService } from './services/notification.service';
 import { ComponentService } from './services/component.service';
+import { AppService } from './services/app.service';
 
 import { NavComponent } from './components/nav/nav.component';
 import { RessourcesListComponent } from './components/ressources-list/ressources-list.component';
@@ -18,6 +19,8 @@ import { KeywordComponent } from './components/keyword/keyword.component';
 import { NewComponent } from './components/new/new.component';
 import { NewKeywordComponent } from './components/new-keyword/new-keyword.component';
 import { TestComponent } from './components/test/test.component';
+import { AppListComponent } from './components/app-list/app-list.component';
+import { CreateAppComponent } from './components/app-list/create-app/create-app.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,8 @@ import { TestComponent } from './components/test/test.component';
     NewComponent,
     NewKeywordComponent,
     TestComponent,
+    AppListComponent,
+    CreateAppComponent,
   ],
   exports: [
     NavComponent,
@@ -41,6 +46,8 @@ import { TestComponent } from './components/test/test.component';
     NewComponent,
     NewKeywordComponent,
     TestComponent,
+    AppListComponent,
+    CreateAppComponent,
   ],
   imports: [
     CommonModule,
@@ -54,7 +61,11 @@ import { TestComponent } from './components/test/test.component';
     RessourcesService,
     ErrorService,
     NotificationService,
-    ComponentService
-  ]
+    ComponentService,
+    AppService,
+  ],
+  entryComponents: [
+    CreateAppComponent
+  ],
 })
 export class SharedModule { }

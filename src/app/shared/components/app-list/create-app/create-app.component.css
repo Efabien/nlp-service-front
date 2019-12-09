@@ -1,0 +1,27 @@
+.knw {
+  width: 40%;
+  border: solid;
+  border-width: thin;
+  border-color: #673ab7d9;
+  border-radius: 5px;
+  display: inline-table;
+  margin-right: 2%;
+  padding:  2%;
+}
+
+.sub-header {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  background-color: #530dd063;
+  padding: 3%;
+  border-radius: 5px;
+}
+
+.app-name {
+  width: 100%;
+}
+
+mat-card-actions {
+  align-content: flex-end;
+}

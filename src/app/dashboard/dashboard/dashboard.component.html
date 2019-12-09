@@ -36,5 +36,11 @@
   class="component"
   [knowledges]="knowledges"
 >
-  
 </app-test>
+<app-app-list
+  *ngIf="componentParams.onScreen === 'apps'"
+  class="component"
+  [knowledges]="knowledges"
+>
+  
+</app-app-list>

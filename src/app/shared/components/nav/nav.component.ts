@@ -37,6 +37,10 @@ export class NavComponent {
     this.componentService.activate({ name: 'test' });
   }
 
+  apps() {
+    this.componentService.activate({ name: 'apps' });
+  }
+
   logout() {
     this.authenticationService.logout();
   }
