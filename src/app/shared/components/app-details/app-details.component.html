@@ -1,0 +1,39 @@
+
+<mat-card *ngIf="app">
+  <mat-card-header class="app-name">{{app.name}}</mat-card-header>
+  <mat-card-content>
+    <mat-divider></mat-divider>
+    <div>
+      <h3>Subscriptions</h3>
+        <div class="knw" *ngFor="let knw of knowledges">
+          <div class="sub-header">
+            <span><b>{{knw.theme}}</b></span>
+            <mat-checkbox
+              (change)="knwlistener($event, knw._id)"
+              class="on-off"
+              color="primary"
+              [checked]="knwSubs.includes(knw._id)"
+            >
+            </mat-checkbox>
+          </div>
+          <br>
+          <mat-option
+            *ngFor="let intent of Object.keys(knw.intents)"
+          >
+            <mat-checkbox
+              [disabled]="!knwSubs.includes(knw._id)"
+              [checked]="isIntentChecked(intent)"
+              color="primary"
+              class="intent-option"
+              [value]="intent"
+              (change)="intentsListner($event, { knwId: knw._id, intent: intent })"
+            >{{intent}}
+            </mat-checkbox>
+          </mat-option><br>
+        </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button [disabled]="!hasIntentSubs()" (click)="save()" color="primary" mat-button>Save</button>
+  </mat-card-actions>
+</mat-card>

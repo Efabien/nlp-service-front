@@ -21,6 +21,7 @@ import { NewKeywordComponent } from './components/new-keyword/new-keyword.compon
 import { TestComponent } from './components/test/test.component';
 import { AppListComponent } from './components/app-list/app-list.component';
 import { CreateAppComponent } from './components/app-list/create-app/create-app.component';
+import { AppDetailsComponent } from './components/app-details/app-details.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { CreateAppComponent } from './components/app-list/create-app/create-app.
     TestComponent,
     AppListComponent,
     CreateAppComponent,
+    AppDetailsComponent,
   ],
   exports: [
     NavComponent,
@@ -48,6 +50,7 @@ import { CreateAppComponent } from './components/app-list/create-app/create-app.
     TestComponent,
     AppListComponent,
     CreateAppComponent,
+    AppDetailsComponent,
   ],
   imports: [
     CommonModule,

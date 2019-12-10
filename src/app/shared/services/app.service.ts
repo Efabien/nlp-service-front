@@ -23,4 +23,9 @@ export class AppService {
     const url = `${this.server}/app`;
     return this.http.get(url).toPromise();
   }
+
+  getAppDetails(appId) {
+    const url = `${this.server}/app/details/${appId}`;
+    return this.http.get(url).toPromise();
+  }
 }

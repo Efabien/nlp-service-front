@@ -74,6 +74,7 @@ export class DashboardComponent implements OnInit {
     this.componentService.active.subscribe((event: any) => {
       this.componentParams.onScreen = event.name;
       this.componentParams.knowledgeId = event.id;
+      this.componentParams.appId = event.appId;
     });
   }
 

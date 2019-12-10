@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ErrorService } from '../../services/error.service';
 import { NotificationService } from '../../services/notification.service';
 import { AppService } from '../../services/app.service';
+import { ComponentService } from '../../services/component.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CreateAppComponent } from './create-app/create-app.component';
 
@@ -19,6 +20,7 @@ export class AppListComponent implements OnInit {
     private appService: AppService,
     private dialog: MatDialog,
     private notificationService: NotificationService,
+    private componentService: ComponentService,
   ) { }
 
   async ngOnInit() {
@@ -48,6 +50,10 @@ export class AppListComponent implements OnInit {
     } finally {
       this.processing = false;
     }
+  }
+
+  appDetails(appId) {
+    this.componentService.activate({ name: 'app-details', appId });
   }
 
   async _loadApp() {
