@@ -33,4 +33,9 @@ export class AppService {
     const url = `${this.server}/app/update/${appId}`;
     return this.http.patch(url, body).toPromise();
   }
+
+  generateToken(appId) {
+    const url = `${this.server}/app/token/${appId}`;
+    return this.http.get(url).toPromise();
+  }
 }

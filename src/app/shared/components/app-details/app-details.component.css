@@ -33,3 +33,23 @@ mat-card {
 h3 {
   padding-top: 2%;
 }
+
+.token {
+  margin-left: 2%;
+  border-style: solid;
+  border-width: thin;
+  padding: 1%;
+  border-radius: 5px;
+  border-color: #5c21c5;
+  min-width: 80%;
+  display: inline-block;
+}
+
+.token-button {
+  background-color: #bca1ed;
+}
+
+.copie-button {
+  background-color: #bca1ed;
+  margin-left: 10%;
+}

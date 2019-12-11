@@ -18,6 +18,7 @@ export class AppDetailsComponent {
   Object = Object;
   processing: boolean;
   stateHash: string;
+  token: string;
   @Input() knowledges: any;
 
   @Input('appId')
@@ -115,7 +116,33 @@ export class AppDetailsComponent {
     } finally {
       this.processing = false;
     }
-    
   }
 
+  async generateToken() {
+    if (this.processing) return;
+    try {
+      this.processing = true;
+      const { token }: any = await this.appService.generateToken(this._appId);
+      this.token = token;
+    } catch (e) {
+      this.errorService.show(e);
+    } finally {
+      this.processing = false
+    }
+  }
+
+  copyToken() {
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = this.token;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+    this.notificationService.show('Copied to clipboard');
+  }
 }

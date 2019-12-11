@@ -22,6 +22,7 @@ import { TestComponent } from './components/test/test.component';
 import { AppListComponent } from './components/app-list/app-list.component';
 import { CreateAppComponent } from './components/app-list/create-app/create-app.component';
 import { AppDetailsComponent } from './components/app-details/app-details.component';
+import { ShortenTokenPipe } from './pipes/shorten-token.pipe';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AppDetailsComponent } from './components/app-details/app-details.compon
     AppListComponent,
     CreateAppComponent,
     AppDetailsComponent,
+    ShortenTokenPipe,
   ],
   exports: [
     NavComponent,
@@ -51,6 +53,7 @@ import { AppDetailsComponent } from './components/app-details/app-details.compon
     AppListComponent,
     CreateAppComponent,
     AppDetailsComponent,
+    ShortenTokenPipe,
   ],
   imports: [
     CommonModule,

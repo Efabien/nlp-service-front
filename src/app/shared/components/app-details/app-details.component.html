@@ -32,6 +32,22 @@
           </mat-option><br>
         </div>
     </div>
+    <mat-divider></mat-divider>
+    <div>
+      <h3> API token</h3>
+      <button
+        mat-button
+        class="token-button"
+        [disabled]="processing || token"
+        (click)="generateToken()"
+      >
+        Generate
+      </button>
+      <span class="token">
+        {{token|shortenToken}}
+        <button (click)="copyToken()" class="copie-button" mat-button *ngIf="token"> Copy</button>
+      </span>
+    </div>
   </mat-card-content>
   <mat-card-actions>
     <button [disabled]="!hasIntentSubs() || !hasChanges()" (click)="save()" color="primary" mat-button>Save</button>
