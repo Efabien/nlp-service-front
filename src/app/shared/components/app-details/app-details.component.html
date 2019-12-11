@@ -34,6 +34,6 @@
     </div>
   </mat-card-content>
   <mat-card-actions>
-    <button [disabled]="!hasIntentSubs()" (click)="save()" color="primary" mat-button>Save</button>
+    <button [disabled]="!hasIntentSubs() || !hasChanges()" (click)="save()" color="primary" mat-button>Save</button>
   </mat-card-actions>
 </mat-card>

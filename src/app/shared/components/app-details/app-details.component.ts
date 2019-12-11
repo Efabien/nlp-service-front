@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { AppService } from '../../services/app.service';
 import { ErrorService } from '../../services/error.service';
 import { NotificationService } from '../../services/notification.service';
+import * as sha1 from 'sha1';
 
 @Component({
   selector: 'app-app-details',
@@ -15,6 +16,8 @@ export class AppDetailsComponent {
   knwSubs: any[] = [];
   intentsSubs: any[] = [];
   Object = Object;
+  processing: boolean;
+  stateHash: string;
   @Input() knowledges: any;
 
   @Input('appId')
@@ -52,11 +55,23 @@ export class AppDetailsComponent {
       });
       return holder.concat(toConcat);
     }, []);
+    this.stateHash = this._calculateHash();
+  }
+
+  _calculateHash() {
+    return sha1(
+      this.intentsSubs.map(item => item.intent).sort().join('')
+    );
+  }
+
+  hasChanges() {
+    return this.stateHash !== this._calculateHash();
   }
 
   knwlistener($event, knwId) {
     if ($event.checked) return this.knwSubs.push(knwId);
     this.knwSubs = this.knwSubs.filter(item => item !== knwId);
+    this.intentsSubs = this.intentsSubs.filter(item => this.knwSubs.includes(item.knwId));
     return;
   }
 
@@ -73,7 +88,33 @@ export class AppDetailsComponent {
     return !!this.intentsSubs.length;
   }
 
-  save() {
+  async save() {
+    if (this.processing) return;
+    try {
+      this.processing = true;
+      const toCommit = this.intentsSubs.filter(item => {
+        return this.knwSubs.includes(item.knwId);
+      });
+      const subscriptions = toCommit.reduce((result, item) => {
+        let isIn = false;
+        for (let i = 0; i < result.length; i ++) {
+          if (result[i].knwId === item.knwId) {
+            isIn = true;
+            result[i].intents.push(item.intent);
+            break;
+          }
+        }
+        if (!isIn) result.push({ knwId: item.knwId, intents: [item.intent]});
+        return result;
+      }, []);
+      await this.appService.updateApp(this._appId, { subscriptions });
+      this.notificationService.show('Your changes were saved successfully');
+      this._load();
+    } catch (e) {
+      this.errorService.show(e);
+    } finally {
+      this.processing = false;
+    }
     
   }
 

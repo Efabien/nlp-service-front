@@ -49,6 +49,7 @@ export class CreateAppComponent implements OnInit {
   knwlistener($event, knwId) {
     if ($event.checked) return this.knwSubs.push(knwId);
     this.knwSubs = this.knwSubs.filter(item => item !== knwId);
+    this.intentsSubs = this.intentsSubs.filter(item => this.knwSubs.includes(item.knwId));
     return;
   }
 

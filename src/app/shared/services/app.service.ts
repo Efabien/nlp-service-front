@@ -28,4 +28,9 @@ export class AppService {
     const url = `${this.server}/app/details/${appId}`;
     return this.http.get(url).toPromise();
   }
+
+  updateApp(appId, body) {
+    const url = `${this.server}/app/update/${appId}`;
+    return this.http.patch(url, body).toPromise();
+  }
 }
